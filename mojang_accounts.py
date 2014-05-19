@@ -10,6 +10,10 @@ class Profile(object):
         self.id = id
         self.name = name
 
+    def format_id(self):
+        # Who decided it was a good idea to format a random number using dashes
+        return "%s-%s-%s-%s-%s" % (self.id[:8], self.id[8:12], self.id[12:16], self.id[16:20], self.id[20:])
+
     def __repr__(self):
         return '%s(%r, %r)' % (self.__class__.__name__, self.id, self.name)
 
