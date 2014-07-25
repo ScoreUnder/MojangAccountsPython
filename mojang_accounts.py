@@ -17,7 +17,8 @@ class Profile(object):
     def format_id(self):
         """Format the UUID as a dash-separated hex string
         
-        Suited for ban lists, usercache.json, etc."""
+        Suited for ban lists, usercache.json, etc.
+        """
         # Who decided it was a good idea to format a random number using dashes
         return "%s-%s-%s-%s-%s" % (self.id[:8], self.id[8:12], self.id[12:16], self.id[16:20], self.id[20:])
 
@@ -36,14 +37,16 @@ class Profile(object):
 
 class HttpProfileRepository(object):
     """A "profile respository" that communicates with Mojang's official HTTP servers
-    See the java class this was based on: https://github.com/Mojang/AccountsClient/blob/master/src/main/java/com/mojang/api/profiles/HttpProfileRepository.java#L17"""
+    See the java class this was based on: https://github.com/Mojang/AccountsClient/blob/master/src/main/java/com/mojang/api/profiles/HttpProfileRepository.java#L17
+    """
     def __init__(self, agent="minecraft"):
         self._profiles_url = "https://api.mojang.com/profiles/%s" % agent
 
     # May raise URLError while iterating
     def find_profiles_by_names(self, *names):
         """Look up profiles in the repository by name and yield each of them one by one.
-        May raise a URLError while iterating."""
+        May raise a URLError while iterating.
+        """
         headers = {"Content-Type": "application/json"}
         while names:
             batch, names = names[:PROFILES_PER_REQUEST], names[PROFILES_PER_REQUEST:]
